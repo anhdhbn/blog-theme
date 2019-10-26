@@ -1,0 +1,42 @@
+
+
+{{/*
+    ## Music 163
+
+    ### Params:
+
+    - `id`
+
+      required param
+      you can extract from music url
+      url format "http://music.163.com/#/song?id=3950552"
+
+    - Fiddle `auto`
+
+      optional param
+      default value 0
+      you can overwrite it with 1
+
+    ### Examples:
+
+    - Simple
+
+      {{% nhaccuatui "AHX2SHdodJlR" %}}
+      {{% nhaccuatui "AHX2SHdodJlR" "auto" %}}
+
+    - Named Params
+
+      {{% nhaccuatui id="AHX2SHdodJlR" %}}
+      {{% nhaccuatui id="AHX2SHdodJlR" start="auto" %}}
+      {{% nhaccuatui id="AHX2SHdodJlR" start="normal" %}}
+
+
+*/}}
+
+{{- /* DEFAULTS */ -}}
+{{ $start := "auto" }}
+{{- if .IsNamedParams -}}
+  <iframe src='https://www.nhaccuatui.com/mh/{{ or (.Get "start") $start }}/{{ .Get "id" }}' width=100% height="382" frameborder="0" allowfullscreen allow="autoplay"></iframe>
+{{- else -}}
+  <iframe src="https://www.nhaccuatui.com/mh/{{ if isset .Params 1 }}{{ .Get 1 }}{{ else }}{{ $start }}{{ end }}/{{ .Get 0 }}" width=100% height="382" frameborder="0" allowfullscreen allow="autoplay"></iframe>
+{{- end -}}
