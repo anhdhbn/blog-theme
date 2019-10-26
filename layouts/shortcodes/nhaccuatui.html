@@ -36,7 +36,17 @@
 {{- /* DEFAULTS */ -}}
 {{ $start := "auto" }}
 {{- if .IsNamedParams -}}
-  <iframe src='https://www.nhaccuatui.com/mh/{{ or (.Get "start") $start }}/{{ .Get "id" }}' width=100% height="382" frameborder="0" allowfullscreen allow="autoplay"></iframe>
+  {{ $start := or (.Get "start") $start }}
+  {{- if (eq $start "background") -}}
+    <iframe src='https://www.nhaccuatui.com/mh/{{ $start }}/{{ .Get "id" }}' width="1" height="1"   frameborder="0" allowfullscreen allow="autoplay"></iframe>
+  {{- else -}}
+    <iframe src='https://www.nhaccuatui.com/mh/{{ $start }}/{{ .Get "id" }}' width="100%" height="382"   frameborder="0" allowfullscreen allow="autoplay"></iframe>
+  {{- end -}}
 {{- else -}}
-  <iframe src="https://www.nhaccuatui.com/mh/{{ if isset .Params 1 }}{{ .Get 1 }}{{ else }}{{ $start }}{{ end }}/{{ .Get 0 }}" width=100% height="382" frameborder="0" allowfullscreen allow="autoplay"></iframe>
+  {{ $start := or (.Get 1) $start}}
+  {{- if eq ($start) "background" -}}
+    <iframe src="https://www.nhaccuatui.com/mh/{{ $start }}/{{ .Get 0 }}" width="1" height="1" frameborder="0" allowfullscreen allow="autoplay"></iframe>
+  {{- else -}}
+    <iframe src="https://www.nhaccuatui.com/mh/{{ $start }}/{{ .Get 0 }}" width=100% height="382" frameborder="0" allowfullscreen allow="autoplay"></iframe>
+  {{- end -}}
 {{- end -}}
