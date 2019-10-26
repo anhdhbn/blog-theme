@@ -1,0 +1,63 @@
+
+
+{{/*
+    ## Music 163
+
+    ### Params:
+
+    - `id`
+
+      required param
+      you can extract from music url
+      url format "http://music.163.com/#/song?id=3950552"
+
+    - Fiddle `auto`
+
+      optional param
+      default value 0
+      you can overwrite it with 1
+
+    ### Examples:
+
+    - Simple
+
+      {{% zingmp3 "3950552" %}}
+      {{% zingmp3 "3950552" true %}}
+
+    - Named Params
+
+      {{% zingmp3 id="3950552" %}}
+      {{% zingmp3 id="3950552" start=true %}}
+
+*/}}
+
+{{- /* DEFAULTS */ -}}
+{{ $start := true }}
+
+{{- if .IsNamedParams -}}
+  <iframe scrolling="no" width=760 height=240 src='https://zingmp3.vn/embed/song/{{ .Get "id" }}?start={{ or (.Get "start") $start }}' frameborder="0" allowfullscreen="true" />
+  <!-- <iframe style="max-width: 100%"
+    class="music163"
+    frameborder="no"
+    border="0"
+    marginwidth="0"
+    marginheight="0"
+    width="330"
+    height="86"
+    src="//music.163.com/outchain/player?type=2&id={{ .Get "id" }}&auto={{ or (.Get "auto") $start }}&height=66">
+  </iframe> -->
+
+{{- else -}}
+<iframe scrolling="no" width=853 height=240 src='https://zingmp3.vn/embed/song/{{ .Get 0 }}?start={{ if isset .Params 1 }}{{ .Get 1 }}{{ else }}{{ $start }}{{ end }}' frameborder="0" allowfullscreen="true" />
+  <!-- <iframe style="max-width: 100%"
+    class="music163"
+    frameborder="no"
+    border="0"
+    marginwidth="0"
+    marginheight="0"
+    width="330"
+    height="86"
+    src="//music.163.com/outchain/player?type=2&id={{ .Get 0 }}&auto={{ if isset .Params 1 }}{{ .Get 1 }}{{ else }}{{ $start }}{{ end }}&height=66">
+  </iframe> -->
+
+{{- end -}}
